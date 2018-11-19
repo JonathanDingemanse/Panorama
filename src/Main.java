@@ -17,7 +17,7 @@ public class Main {
             e.printStackTrace();
             return;
         }
-        long beginCalculationtime = System.currentTimeMillis();
+        long beginCalculationTime = System.currentTimeMillis();
 
         int[] shifts = ShiftFinder.bestShifts(image1, image2);
 
@@ -25,7 +25,7 @@ public class Main {
         int bestYShift = shifts[1];
 
         System.out.println("Best shift: " + bestXShift + " x, " + bestYShift + " y");
-        System.out.println("Calculation time: " + (System.currentTimeMillis() - beginCalculationtime + " ms"));
+        System.out.println("Calculation time: " + (System.currentTimeMillis() - beginCalculationTime + " ms"));
     }
 
 
