@@ -56,7 +56,7 @@ public class ShiftFinder {
         //int bestShift = 0;
         int sum = 0;
         for (int x = Math.max(0, xShift); x < Math.min(im1.getWidth() - 1, im2.getWidth() - 1 + xShift); x += CALCULATION_ACCELERATION_MULTIPLIER) {
-            //correlation between koloms
+            //correlation between columns
             int sumUntil = Math.min(im1.getHeight() - 1, im2.getHeight() - 1 + yShift);
 
 
