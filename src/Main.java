@@ -7,7 +7,7 @@ import java.io.IOException;
 public class Main {
     static BufferedImage image1;
     static BufferedImage image2;
-    static int CALCULATION_ACCELERATION_MULTIPLIER = 50;
+    static int CALCULATION_ACCELERATION_MULTIPLIER = 80;
     static int c[] = {0, 0, 0, 0};
 
     public static void main(String[] args){
@@ -59,10 +59,9 @@ public class Main {
             //correlation between lines
 
             for (int x = Math.max(0, xShift); x < Math.min(im1.getWidth() - 1, im2.getWidth() - 1 + xShift); x++) {
-                sum +=  x + y + xShift;//im1.getPixel(x, y, c)[2] * im2.getPixel(x - xShift, y, c)[2];
+                sum +=  im1.getPixel(x, y, c)[2] * im2.getPixel(x - xShift, y, c)[2];
             }
         }
-
         return sum;
     }
 
@@ -76,10 +75,9 @@ public class Main {
 
 
             for (int y = Math.max(0, yShift); y < sumUntil; y++) {
-                sum += x + y + yShift;//im1.getPixel(x, y, c)[2] * im2.getPixel(x, y - yShift, c)[2];
+                sum += im1.getPixel(x, y, c)[2] * im2.getPixel(x, y - yShift, c)[2];
             }
         }
-
         return sum;
     }
 
