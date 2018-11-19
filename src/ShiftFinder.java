@@ -15,6 +15,15 @@ public class ShiftFinder {
         WritableRaster im1 = i1.getRaster();
         WritableRaster im2 = i2.getRaster();
 
+        int matrix1Red[][] = new int[im1.getWidth()][im1.getHeight()];
+        int jArray[] = new int [im1.getHeight()];
+
+
+        for(int x = 0; x < im1.getWidth(); x++ ){
+            matrix1Red[x] = im2.getSamples(x,0, 1, im1.getHeight(), 1,  jArray);
+        }
+        System.out.println(matrix1Red[1][390]);
+
         //for(int yShift = -im2.getHeight() + 1; yShift < im1.getHeight(); yShift++){
         for(int yShift = 130; yShift < im1.getHeight()/4; yShift++){
             //int yShift = 0;
