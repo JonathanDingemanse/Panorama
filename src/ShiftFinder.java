@@ -4,8 +4,15 @@ import java.awt.image.WritableRaster;
 public class ShiftFinder {
     static BufferedImage image1;
     static BufferedImage image2;
-    static int CALCULATION_ACCELERATION_MULTIPLIER = 80;
+    static final int CALCULATION_ACCELERATION_MULTIPLIER = 80;
+    static final int RED = 0;
+    static final int GREEN = 1;
+    static final int BLUE = 2;
     static int c[] = {0, 0, 0, 0};
+
+    static int matrix1Red[][];
+    static int matrix2Red[][];
+
 
     static int[] bestShifts(BufferedImage i1, BufferedImage i2) {
         int bestXShift = 0;
@@ -15,13 +22,9 @@ public class ShiftFinder {
         WritableRaster im1 = i1.getRaster();
         WritableRaster im2 = i2.getRaster();
 
-        int matrix1Red[][] = new int[im1.getWidth()][im1.getHeight()];
-        int jArray[] = new int [im1.getHeight()];
+        matrix1Red = writableRasterToMatrix(im1, RED);
+        matrix2Red = writableRasterToMatrix(im2, RED);
 
-
-        for(int x = 0; x < im1.getWidth(); x++ ){
-            matrix1Red[x] = im2.getSamples(x,0, 1, im1.getHeight(), 1,  jArray);
-        }
         System.out.println(matrix1Red[1][390]);
 
         //for(int yShift = -im2.getHeight() + 1; yShift < im1.getHeight(); yShift++){
@@ -54,7 +57,7 @@ public class ShiftFinder {
             //correlation between lines
 
             for (int x = Math.max(0, xShift); x < Math.min(im1.getWidth() - 1, im2.getWidth() - 1 + xShift); x++) {
-                sum +=  im1.getPixel(x, y, c)[2] * im2.getPixel(x - xShift, y, c)[2];
+                //sum +=  matrix1Red[x][y] * matrix2Red[x - xShift][y];
             }
         }
         return sum;
@@ -70,9 +73,19 @@ public class ShiftFinder {
 
 
             for (int y = Math.max(0, yShift); y < sumUntil; y++) {
-                sum += im1.getPixel(x, y, c)[2] * im2.getPixel(x, y - yShift, c)[2];
+                sum += matrix1Red[x][y] * matrix2Red[x][y - yShift];
             }
         }
         return sum;
+    }
+
+    static int[][] writableRasterToMatrix(WritableRaster raster, int color){
+        int iArray[] = new int [raster.getHeight()];
+        int matrix[][] = new int[raster.getWidth()][raster.getHeight()];
+
+        for(int x = 0; x < raster.getWidth(); x++ ){
+            matrix[x] = raster.getSamples(x,0, 1, raster.getHeight(), color,  iArray);
+        }
+        return matrix;
     }
 }
