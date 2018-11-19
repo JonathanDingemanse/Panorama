@@ -27,7 +27,4 @@ public class Main {
         System.out.println("Best shift: " + bestXShift + " x, " + bestYShift + " y");
         System.out.println("Calculation time: " + (System.currentTimeMillis() - beginCalculationTime + " ms"));
     }
-
-
-
 }
